@@ -56,7 +56,7 @@ An advanced Morse Code (CW) web application built with **Next.js 16**, featuring
    npm run dev
    ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the application.
+Open [http://localhost:3002](http://localhost:3002) to see the application.
 
 ---
 
