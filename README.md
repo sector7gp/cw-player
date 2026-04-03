@@ -60,6 +60,36 @@ Open [http://localhost:3002](http://localhost:3002) to see the application.
 
 ---
 
+## 🚀 Production Deployment (PM2)
+
+To run the application in production using **PM2**, follow these steps:
+
+1. **Build the production bundle**:
+   ```bash
+   npm run build
+   ```
+
+2. **Start with PM2**:
+   ```bash
+   pm2 start npm --name "cw-player" -- start
+   ```
+
+The application will run on port **3002** (as configured in `package.json`).
+
+3. **Check status**:
+   ```bash
+   pm2 status
+   ```
+
+4. **Persistence**:
+   To ensure the process restarts automatically on system reboot:
+   ```bash
+   pm2 save
+   pm2 startup
+   ```
+
+---
+
 ## 📜 Credits & Attribution
 
 - **Developer**: sector7gp

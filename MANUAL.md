@@ -70,6 +70,16 @@ Visualización técnica de la señal generada.
 
 ---
 
+## 8. Despliegue en Producción (PM2)
+
+Para entornos de servidor, se recomienda el uso de **PM2** para gestionar el proceso de Node.js:
+
+1. **Construcción**: `npm run build`
+2. **Inicio**: `pm2 start npm --name "cw-player" -- start`
+3. **Estado**: `pm2 list` (Verifica que esté corriendo en el puerto configurado 3002).
+
+---
+
 ## 📜 Copyright
 
 Esta aplicación fue desarrollada por **sector7gp** basándose en la arquitectura y conceptos del proyecto [cwpEA de F1ORL](https://www.f1orl.org/cwpEA.htm). El uso de este software es gratuito con fines educativos y de práctica para radioaficionados.
