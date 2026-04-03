@@ -16,6 +16,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCWStore } from '@/store/cwStore';
 import { useState } from 'react';
+import Image from 'next/image';
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -68,12 +69,12 @@ export function Sidebar() {
           <div className="flex items-center justify-between px-2">
             <span className="text-[11px] text-slate-500 font-mono opacity-80">{t.sidebar.footer.version}</span>
             
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               {/* Mini Language Switcher */}
               <div className="flex bg-black/20 rounded-lg p-0.5 border border-white/5">
                 <button 
                   onClick={() => setLanguage('en')}
-                  className={`w-6 h-6 flex items-center justify-center rounded text-xs transition-all ${
+                  className={`w-5 h-5 flex items-center justify-center rounded text-[10px] transition-all ${
                     language === 'en' ? 'bg-primary/20 text-primary grayscale-0' : 'text-slate-500 grayscale opacity-40 hover:grayscale-0 hover:opacity-100'
                   }`}
                   title="English"
@@ -82,7 +83,7 @@ export function Sidebar() {
                 </button>
                 <button 
                   onClick={() => setLanguage('es')}
-                  className={`w-6 h-6 flex items-center justify-center rounded text-xs transition-all ${
+                  className={`w-5 h-5 flex items-center justify-center rounded text-[10px] transition-all ${
                     language === 'es' ? 'bg-primary/20 text-primary grayscale-0' : 'text-slate-500 grayscale opacity-40 hover:grayscale-0 hover:opacity-100'
                   }`}
                   title="Español"
@@ -91,9 +92,9 @@ export function Sidebar() {
                 </button>
               </div>
 
-              <div className="h-4 w-px bg-white/10 mx-1" />
+              <div className="h-4 w-px bg-white/10 mx-0.5" />
 
-              <div className="flex gap-2">
+              <div className="flex gap-1.5">
                 <a href="https://github.com/sector7gp/cw-player" target="_blank" rel="noopener noreferrer" title={t.sidebar.footer.repo}>
                   <Code className="w-4 h-4 text-slate-500 hover:text-primary transition-colors" />
                 </a>
@@ -104,16 +105,36 @@ export function Sidebar() {
             </div>
           </div>
           
-          <div className="px-2 py-2 bg-black/20 rounded-lg flex flex-col gap-1 border border-white/5">
+          <div className="px-2 py-2 bg-black/20 rounded-lg flex flex-col gap-1.5 border border-white/5">
             <div className="flex items-center gap-2 text-[10px] text-slate-400">
               <Award className="w-3 h-3 text-accent" />
               {t.sidebar.footer.credits}
             </div>
+            
+            {/* Club Info */}
+            <a 
+              href="http://lu4aao.org/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 group"
+            >
+              <div className="w-5 h-5 bg-white/10 rounded flex-shrink-0 overflow-hidden group-hover:bg-red-500/20 transition-all">
+                <img 
+                  src="/lu4aao_logo.gif" 
+                  alt="LU4AAO"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <span className="text-[9px] text-slate-500 group-hover:text-primary transition-colors truncate">
+                {t.sidebar.footer.qrmBelgrano}
+              </span>
+            </a>
+
             <a 
               href="https://www.f1orl.org/cwpEA.htm" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-[9px] text-slate-600 hover:text-primary transition-colors truncate italic"
+              className="text-[9px] text-slate-600 hover:text-primary transition-colors truncate italic border-t border-white/5 pt-1 mt-0.5"
             >
               {t.sidebar.footer.basedOn}
             </a>
@@ -148,6 +169,15 @@ export function Sidebar() {
               <div className="space-y-4 text-slate-300 relative z-10 leading-relaxed">
                 <p>{t.copyright.content}</p>
                 <div className="h-px bg-white/10 my-4" />
+                
+                <div className="flex items-center gap-3 py-2">
+                  <img src="/lu4aao_logo.gif" alt="LU4AAO" className="w-8 h-8 rounded shadow-lg" />
+                  <div>
+                    <p className="text-sm font-semibold text-white">{t.sidebar.footer.qrmBelgrano} (LU4AAO)</p>
+                    <a href="http://lu4aao.org/" target="_blank" className="text-xs text-primary hover:underline">lu4aao.org</a>
+                  </div>
+                </div>
+
                 <p className="font-medium text-slate-400">{t.copyright.owner}</p>
                 
                 <div className="flex flex-col gap-2 pt-2">

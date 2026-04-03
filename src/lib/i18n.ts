@@ -11,6 +11,7 @@ export const TRANSLATIONS = {
         version: "v1.0.0",
         credits: "By sector7gp",
         basedOn: "Based on f1orl.org",
+        qrmBelgrano: "Radio Club QRM Belgrano",
         repo: "Source Code"
       }
     },
@@ -106,6 +107,7 @@ export const TRANSLATIONS = {
         version: "v1.0.0",
         credits: "Por sector7gp",
         basedOn: "Basado en f1orl.org",
+        qrmBelgrano: "Radio Club QRM Belgrano",
         repo: "Código Fuente"
       }
     },

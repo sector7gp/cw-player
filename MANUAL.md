@@ -82,4 +82,4 @@ Para entornos de servidor, se recomienda el uso de **PM2** para gestionar el pro
 
 ## 📜 Copyright
 
-Esta aplicación fue desarrollada por **sector7gp** basándose en la arquitectura y conceptos del proyecto [cwpEA de F1ORL](https://www.f1orl.org/cwpEA.htm). El uso de este software es gratuito con fines educativos y de práctica para radioaficionados.
+Esta aplicación fue desarrollada por **sector7gp** basándose en la arquitectura y conceptos del proyecto [cwpEA de F1ORL](https://www.f1orl.org/cwpEA.htm) y con el apoyo del **[Radio Club QRM Belgrano (LU4AAO)](http://lu4aao.org/)**. El uso de este software es gratuito con fines educativos y de práctica para radioaficionados.

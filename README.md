@@ -94,6 +94,7 @@ The application will run on port **3002** (as configured in `package.json`).
 
 - **Developer**: sector7gp
 - **Inspiration**: Based on the logic and concepts of [cwpEA by F1ORL](https://www.f1orl.org/cwpEA.htm).
+- **Supporter**: [Radio Club QRM Belgrano (LU4AAO)](http://lu4aao.org/)
 - **License**: Provided for educational and amateur radio practice purposes.
 
 ---
