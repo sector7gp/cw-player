@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function KeyingPage() {
   const { config, t } = useCWStore();
   const engineRef = useRef<CWAudioEngine | null>(null);
+  const tappingBtnRef = useRef<HTMLDivElement>(null);
   
   const [currentSymbol, setCurrentSymbol] = useState(''); // e.g., '.-.'
   const [decodedText, setDecodedText] = useState('');
@@ -97,6 +98,30 @@ export default function KeyingPage() {
 
   }, [isPressing, currentSymbol, getWpmUnitMs]);
 
+  // Touch Events Fix for Passive Listeners
+  useEffect(() => {
+    const el = tappingBtnRef.current;
+    if (!el) return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      e.preventDefault();
+      handlePress();
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      e.preventDefault();
+      handleRelease();
+    };
+
+    el.addEventListener('touchstart', onTouchStart, { passive: false });
+    el.addEventListener('touchend', onTouchEnd, { passive: false });
+
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [handlePress, handleRelease]);
+
   // Keyboard events
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -147,16 +172,15 @@ export default function KeyingPage() {
           </h3>
 
           <div
-            className={`w-32 h-32 md:w-40 md:h-40 rounded-full flex justify-center items-center cursor-pointer transition-all duration-75 select-none shadow-xl relative z-10 ${
+            ref={tappingBtnRef}
+            className={`w-32 h-32 md:w-40 md:h-40 rounded-full flex justify-center items-center cursor-pointer transition-all duration-75 select-none shadow-xl relative z-10 touch-none active:scale-95 ${
               isPressing 
-                ? 'bg-orange-500 shadow-orange-500/50 scale-95' 
-                : 'bg-slate-800 hover:bg-slate-700 shadow-black/50 scale-100'
+                ? 'bg-orange-500 shadow-orange-500/50' 
+                : 'bg-slate-800 hover:bg-slate-700 shadow-black/50'
             }`}
             onMouseDown={handlePress}
             onMouseUp={handleRelease}
             onMouseLeave={handleRelease}
-            onTouchStart={(e) => { e.preventDefault(); handlePress(); }}
-            onTouchEnd={(e) => { e.preventDefault(); handleRelease(); }}
           >
             <Hand className={`w-12 h-12 md:w-16 md:h-16 ${isPressing ? 'text-white' : 'text-slate-400'}`} />
           </div>
