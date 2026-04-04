@@ -11,6 +11,8 @@ interface State {
   // UI State
   isPlaying: boolean;
   setIsPlaying: (val: boolean) => void;
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: (val: boolean) => void;
   t: typeof TRANSLATIONS.en;
 }
 
@@ -25,6 +27,8 @@ export const useCWStore = create<State>()(
       setLanguage: (lang) => set({ language: lang, t: TRANSLATIONS[lang] }),
       isPlaying: false,
       setIsPlaying: (val) => set({ isPlaying: val }),
+      isSidebarOpen: false,
+      setIsSidebarOpen: (val) => set({ isSidebarOpen: val }),
       t: TRANSLATIONS.en,
     }),
     {

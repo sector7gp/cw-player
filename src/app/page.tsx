@@ -33,19 +33,12 @@ export default function TextGeneratorPage() {
     }
   }, [config]);
 
-  const handlePlay = () => {
-    if (!engineRef.current) return;
+  const handlePlay = async () => {
+    if (!engineRef.current || !text) return;
     setIsPlaying(true);
-    setActiveCharIdx(-1);
-    
-    // Convert to strict morse ignoring unknown chars, but preserving spaces visually
-    const morseToPlay = textToMorse(text);
-
-    engineRef.current.playSequence(
-      morseToPlay,
-      (idx) => {
-        // Map morse string index back to word index or visual index if needed
-      },
+    await engineRef.current.playSequence(
+      textToMorse(text),
+      (idx) => setActiveCharIdx(idx),
       () => {
         setIsPlaying(false);
         setActiveCharIdx(-1);
@@ -78,9 +71,9 @@ export default function TextGeneratorPage() {
 
       <CWConfigPanel />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
         {/* Text Input Section */}
-        <div className="glass-panel bg-slate-900/60 rounded-2xl p-6 flex flex-col h-96">
+        <div className="glass-panel bg-slate-900/60 rounded-2xl p-6 flex flex-col h-80 sm:h-96">
           <h3 className="text-lg font-medium text-slate-200 mb-4 flex items-center gap-2">
             <Volume2 className="w-5 h-5 text-primary" /> {t.textGen.inputLabel}
           </h3>

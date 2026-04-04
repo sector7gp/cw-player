@@ -49,10 +49,10 @@ export default function RandomGeneratorPage() {
     setGeneratedText(result);
   };
 
-  const handlePlay = () => {
+  const handlePlay = async () => {
     if (!engineRef.current || !generatedText) return;
     setIsPlaying(true);
-    engineRef.current.playSequence(
+    await engineRef.current.playSequence(
       textToMorse(generatedText),
       () => {}, // progress
       () => setIsPlaying(false)
@@ -78,7 +78,7 @@ export default function RandomGeneratorPage() {
 
       <CWConfigPanel />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
         {/* Settings Panel */}
         <div className="glass-panel bg-slate-900/60 rounded-2xl p-6 flex flex-col gap-4">
           <h3 className="text-lg font-medium text-slate-200 flex items-center gap-2 border-b border-white/10 pb-2">

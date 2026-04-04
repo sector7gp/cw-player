@@ -35,14 +35,22 @@ export class CWAudioEngine {
   }
 
   private initAudio() {
+    if (typeof window === 'undefined') return;
+    
     if (!this.audioCtx) {
-      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-      this.audioCtx = new AudioContext();
-      this.analyser = this.audioCtx.createAnalyser();
-      this.analyser.fftSize = 2048;
+      const AudioContextClass = (window as any).AudioContext || (window as any).webkitAudioContext;
+      this.audioCtx = new AudioContextClass();
+      if (this.audioCtx) {
+        this.analyser = this.audioCtx.createAnalyser();
+        this.analyser.fftSize = 2048;
+      }
     }
-    if (this.audioCtx.state === 'suspended') {
-      this.audioCtx.resume();
+  }
+
+  public async resume(): Promise<void> {
+    this.initAudio();
+    if (this.audioCtx && this.audioCtx.state === 'suspended') {
+      await this.audioCtx.resume();
     }
   }
 
@@ -79,8 +87,8 @@ export class CWAudioEngine {
     return { dot, dash, elementGap, charGap, wordGap };
   }
 
-  public playSequence(morse: string, onProgress?: (index: number) => void, onComplete?: () => void) {
-    this.initAudio();
+  public async playSequence(morse: string, onProgress?: (index: number) => void, onComplete?: () => void) {
+    await this.resume();
     if (this.isPlaying) this.stop();
     this.isPlaying = true;
 
@@ -143,8 +151,8 @@ export class CWAudioEngine {
     }
   }
 
-  public playToneStart() {
-    this.initAudio();
+  public async playToneStart() {
+    await this.resume();
     if (!this.oscillator) {
       this.oscillator = this.audioCtx!.createOscillator();
       this.gainNode = this.audioCtx!.createGain();

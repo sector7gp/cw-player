@@ -16,7 +16,7 @@ export function CWConfigPanel() {
         <h2 className="text-lg font-semibold text-slate-200">{t.config.title}</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
         
         {/* WPM */}
         <div className="flex flex-col gap-2">

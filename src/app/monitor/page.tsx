@@ -5,8 +5,7 @@ import { textToMorse } from '@/lib/morse';
 import { CWAudioEngine } from '@/lib/audio';
 import { useCWStore } from '@/store/cwStore';
 import { CWConfigPanel } from '@/components/CWConfigPanel';
-import { Waves, Play, Square, Activity } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Play, Square, Activity } from 'lucide-react';
 
 export default function MonitorPage() {
   const { config, isPlaying, setIsPlaying, t } = useCWStore();
@@ -43,11 +42,10 @@ export default function MonitorPage() {
 
     analyser.getByteTimeDomainData(dataArray);
 
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.4)'; // Clear background slightly for trail effect
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.4)'; 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.lineWidth = 3;
-    // Gradient line
     const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
     gradient.addColorStop(0, '#38bdf8');
     gradient.addColorStop(0.5, '#818cf8');
@@ -83,10 +81,10 @@ export default function MonitorPage() {
 
   const [testText, setTestText] = useState('VVV DE SECTOR 7G');
 
-  const handlePlayTone = () => {
+  const handlePlayTone = async () => {
     if (!engineRef.current) return;
     setIsPlaying(true);
-    engineRef.current.playSequence(
+    await engineRef.current.playSequence(
       textToMorse(testText),
       () => {},
       () => setIsPlaying(false)
@@ -117,14 +115,13 @@ export default function MonitorPage() {
           <Activity className="w-5 h-5 text-cyan-400" /> {t.monitor.oscilloscope}
         </h3>
 
-        <div className="w-full relative bg-slate-950/80 rounded-xl overflow-hidden shadow-inner border border-white/5 h-64 mb-6">
+        <div className="w-full relative bg-slate-950/80 rounded-xl overflow-hidden shadow-inner border border-white/5 h-48 md:h-64 mb-6">
           <canvas 
             ref={canvasRef} 
             width={1200} 
             height={400} 
             className="w-full h-full block" 
           />
-          {/* Grid overlay */}
           <div className="absolute inset-0 pointer-events-none opacity-20"
                style={{ 
                  backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
@@ -135,7 +132,7 @@ export default function MonitorPage() {
 
         <div className="flex flex-col md:flex-row gap-4 w-full justify-between items-center z-10">
           <div className="flex-1 w-full flex gap-3 items-center">
-            <span className="text-sm font-medium text-slate-400">{t.monitor.testString}</span>
+            <span className="text-sm font-medium text-slate-400 whitespace-nowrap">{t.monitor.testString}</span>
             <input 
               value={testText}
               onChange={(e) => setTestText(e.target.value.toUpperCase())}
@@ -146,7 +143,7 @@ export default function MonitorPage() {
             <button
               disabled={isPlaying || !testText}
               onClick={handlePlayTone}
-              className="bg-cyan-500 hover:bg-cyan-600 disabled:opacity-50 text-white rounded-xl px-6 py-3 font-semibold transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
+              className="flex-1 bg-cyan-500 hover:bg-cyan-600 disabled:opacity-50 text-white rounded-xl px-6 py-3 font-semibold transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
             >
               <Play className="w-5 h-5 fill-current" /> {t.monitor.toneTest}
             </button>

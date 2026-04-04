@@ -40,10 +40,10 @@ export default function LessonsPage() {
     if (engineRef.current) engineRef.current.updateConfig(config);
   }, [config]);
 
-  const handlePlayLesson = () => {
+  const handlePlayLesson = async () => {
     if (!engineRef.current) return;
     setIsPlaying(true);
-    engineRef.current.playSequence(
+    await engineRef.current.playSequence(
       textToMorse(activeLesson.content),
       () => {},
       () => {
@@ -74,7 +74,7 @@ export default function LessonsPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-2">
         {/* Course List */}
-        <div className="glass-panel bg-slate-900/60 rounded-2xl p-4 flex flex-col gap-2 relative overflow-hidden h-[500px]">
+        <div className="glass-panel bg-slate-900/60 rounded-2xl p-4 flex flex-col gap-2 relative overflow-hidden h-64 md:h-[500px]">
           <h3 className="text-lg font-medium text-slate-200 flex items-center gap-2 mb-2 p-2 border-b border-white/10">
             <BookOpen className="w-5 h-5 text-purple-400" /> {t.lessons.curriculum}
           </h3>
@@ -108,20 +108,20 @@ export default function LessonsPage() {
         </div>
 
         {/* Lesson View */}
-        <div className="lg:col-span-2 glass-panel bg-slate-900/60 rounded-2xl p-6 flex flex-col h-[500px] relative">
+        <div className="lg:col-span-2 glass-panel bg-slate-900/60 rounded-2xl p-6 flex flex-col h-[400px] md:h-[500px] relative">
           <div className="absolute top-0 right-0 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
           
           <div className="flex justify-between items-start border-b border-white/10 pb-4 mb-4">
              <div>
-               <h2 className="text-2xl font-bold text-slate-100">{activeLesson.title}</h2>
-               <p className="text-slate-400 mt-1">{activeLesson.description}</p>
+               <h2 className="text-xl md:text-2xl font-bold text-slate-100">{activeLesson.title}</h2>
+               <p className="text-sm text-slate-400 mt-1">{activeLesson.description}</p>
              </div>
-             <div className="bg-black/30 px-4 py-2 rounded-lg border border-white/5 font-mono text-purple-300 font-bold tracking-widest">
+             <div className="bg-black/30 px-3 md:px-4 py-2 rounded-lg border border-white/5 font-mono text-purple-300 font-bold tracking-widest text-sm md:text-base">
                {activeLesson.characters}
              </div>
           </div>
 
-          <div className="flex-1 bg-black/20 rounded-xl p-6 text-2xl tracking-[0.3em] font-mono text-slate-200 leading-relaxed overflow-y-auto mb-4 custom-scrollbar shadow-inner break-words">
+          <div className="flex-1 bg-black/20 rounded-xl p-4 md:p-6 text-xl md:text-2xl tracking-[0.3em] font-mono text-slate-200 leading-relaxed overflow-y-auto mb-4 custom-scrollbar shadow-inner break-words">
             {activeLesson.content}
           </div>
 
@@ -129,14 +129,14 @@ export default function LessonsPage() {
             <button
               disabled={isPlaying}
               onClick={handlePlayLesson}
-              className="flex-1 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white rounded-xl py-4 font-semibold transition-all flex items-center justify-center gap-2 shadow-lg shadow-purple-500/20"
+              className="flex-1 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white rounded-xl py-3 md:py-4 font-semibold transition-all flex items-center justify-center gap-2 shadow-lg shadow-purple-500/20"
             >
               <Play className="w-5 h-5 fill-current" /> {t.lessons.startLesson}
             </button>
             <button
               disabled={!isPlaying}
               onClick={handleStop}
-              className="px-8 bg-red-500/10 hover:bg-red-500/20 text-red-500 disabled:opacity-30 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 border border-red-500/20"
+              className="px-6 md:px-8 bg-red-500/10 hover:bg-red-500/20 text-red-500 disabled:opacity-30 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 border border-red-500/20"
             >
               <Square className="w-5 h-5 fill-current" /> {t.lessons.stop}
             </button>

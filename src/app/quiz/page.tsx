@@ -47,13 +47,13 @@ export default function QuizPage() {
     setStats(null);
   };
 
-  const handlePlayQuiz = () => {
+  const handlePlayQuiz = async () => {
     if (!engineRef.current || !sequence) return;
     setIsPlaying(true);
     // Add spaces between letters so Farnsworth timing applies clearly in quiz
     const spacedSequenceText = sequence.split('').join(' ');
     
-    engineRef.current.playSequence(
+    await engineRef.current.playSequence(
       textToMorse(spacedSequenceText),
       () => {}, 
       () => setIsPlaying(false)

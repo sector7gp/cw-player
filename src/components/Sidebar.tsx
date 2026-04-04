@@ -11,16 +11,17 @@ import {
   Activity,
   Code,
   Award,
-  Info
+  Info,
+  X,
+  Menu
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCWStore } from '@/store/cwStore';
 import { useState } from 'react';
-import Image from 'next/image';
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { language, setLanguage, t } = useCWStore();
+  const { language, setLanguage, t, isSidebarOpen, setIsSidebarOpen } = useCWStore();
   const [showCopyright, setShowCopyright] = useState(false);
 
   const NAV_ITEMS = [
@@ -32,10 +33,38 @@ export function Sidebar() {
     { href: '/monitor', label: t.sidebar.signalMonitor, icon: Activity },
   ];
 
+  const closeSidebar = () => setIsSidebarOpen(false);
+
   return (
     <>
-      <div className="w-64 h-screen border-r border-white/10 glass-panel bg-slate-900/50 flex flex-col p-4 shrink-0 fixed z-30">
-        <div className="flex items-center gap-3 px-2 mb-8 mt-2 text-primary font-bold text-xl uppercase tracking-wider">
+      {/* Mobile Toggle Button */}
+      <button 
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        className="fixed top-4 left-4 z-50 p-3 bg-slate-900 border border-white/10 rounded-xl text-primary lg:hidden shadow-lg"
+      >
+        {isSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+      </button>
+
+      {/* Backdrop for mobile */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeSidebar}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      <div className={`
+        fixed lg:static inset-y-0 left-0 z-40
+        w-64 h-screen border-r border-white/10 glass-panel bg-slate-900/50 flex flex-col p-4 shrink-0 
+        transition-transform duration-300 ease-in-out
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
+        <div className="flex items-center gap-3 px-2 mb-8 mt-2 lg:mt-2 mt-12 text-primary font-bold text-xl uppercase tracking-wider">
           <Waves className="w-6 h-6 text-accent" />
           CW Player Node
         </div>
@@ -45,7 +74,12 @@ export function Sidebar() {
             const isActive = pathname === item.href;
             const Icon = item.icon;
             return (
-              <Link key={item.href} href={item.href} className="relative">
+              <Link 
+                key={item.href} 
+                href={item.href} 
+                className="relative"
+                onClick={closeSidebar}
+              >
                 {isActive && (
                   <motion.div 
                     layoutId="sidebar-active"
@@ -70,7 +104,6 @@ export function Sidebar() {
             <span className="text-[11px] text-slate-500 font-mono opacity-80">{t.sidebar.footer.version}</span>
             
             <div className="flex items-center gap-2">
-              {/* Mini Language Switcher */}
               <div className="flex bg-black/20 rounded-lg p-0.5 border border-white/5">
                 <button 
                   onClick={() => setLanguage('en')}
@@ -111,7 +144,6 @@ export function Sidebar() {
               {t.sidebar.footer.credits}
             </div>
             
-            {/* Club Info */}
             <a 
               href="http://lu4aao.org/" 
               target="_blank" 
