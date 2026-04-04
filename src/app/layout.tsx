@@ -17,8 +17,8 @@ export default function RootLayout({
       <body className="antialiased min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0f172a] to-black">
         <div className="flex h-screen overflow-hidden">
           <Sidebar />
-          <main className="flex-1 lg:ml-64 overflow-y-auto w-full relative">
-            <div className="max-w-6xl mx-auto p-4 md:p-8 pt-20 lg:pt-8 relative z-10">
+          <main className="flex-1 overflow-y-auto w-full relative">
+            <div className="max-w-6xl mx-auto p-4 md:p-8 pt-20 lg:pt-8 pl-16 md:pl-8 lg:pl-8 relative z-10">
               {children}
             </div>
           </main>
