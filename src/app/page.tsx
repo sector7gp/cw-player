@@ -4,8 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { textToMorse } from '@/lib/morse';
 import { CWAudioEngine } from '@/lib/audio';
 import { useCWStore } from '@/store/cwStore';
-import { CWConfigPanel } from '@/components/CWConfigPanel';
-import { Play, Square, Pause, RotateCcw, Volume2 } from 'lucide-react';
+import { Volume2, Play, Square, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function TextGeneratorPage() {
@@ -69,7 +68,7 @@ export default function TextGeneratorPage() {
         </div>
       </div>
 
-      <CWConfigPanel />
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
         {/* Text Input Section */}

@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 import { textToMorse } from '@/lib/morse';
 import { CWAudioEngine } from '@/lib/audio';
 import { useCWStore } from '@/store/cwStore';
-import { CWConfigPanel } from '@/components/CWConfigPanel';
 import { Play, Square, BookOpen, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -70,8 +69,6 @@ export default function LessonsPage() {
         </div>
       </div>
 
-      <CWConfigPanel />
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-2">
         {/* Course List */}
         <div className="glass-panel bg-slate-900/60 rounded-2xl p-4 flex flex-col gap-2 relative overflow-hidden h-64 md:h-[500px]">
@@ -121,7 +118,7 @@ export default function LessonsPage() {
              </div>
           </div>
 
-          <div className="flex-1 bg-black/20 rounded-xl p-4 md:p-6 text-xl md:text-2xl tracking-[0.3em] font-mono text-slate-200 leading-relaxed overflow-y-auto mb-4 custom-scrollbar shadow-inner break-words">
+          <div className="flex-1 bg-black/20 rounded-xl p-4 md:p-6 text-xl md:text-2xl tracking-[0.3em] font-mono text-slate-200 leading-relaxed overflow-y-auto mb-4 custom-scrollbar shadow-inner break-words border border-white/5">
             {activeLesson.content}
           </div>
 

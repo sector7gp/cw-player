@@ -13,7 +13,8 @@ import {
   Award,
   Info,
   X,
-  Menu
+  Menu,
+  Settings
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCWStore } from '@/store/cwStore';
@@ -31,6 +32,7 @@ export function Sidebar() {
     { href: '/quiz', label: t.sidebar.quizMode, icon: Target },
     { href: '/keying', label: t.sidebar.keyingPractice, icon: Waves },
     { href: '/monitor', label: t.sidebar.signalMonitor, icon: Activity },
+    { href: '/settings', label: t.sidebar.settings, icon: Settings },
   ];
 
   const closeSidebar = () => setIsSidebarOpen(false);

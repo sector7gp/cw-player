@@ -4,8 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { textToMorse } from '@/lib/morse';
 import { CWAudioEngine } from '@/lib/audio';
 import { useCWStore } from '@/store/cwStore';
-import { CWConfigPanel } from '@/components/CWConfigPanel';
-import { Play, Square, RefreshCw, Settings } from 'lucide-react';
+import { Dices, Play, Square, Settings as SettingsIcon, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -76,13 +75,11 @@ export default function RandomGeneratorPage() {
         </div>
       </div>
 
-      <CWConfigPanel />
-
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
         {/* Settings Panel */}
         <div className="glass-panel bg-slate-900/60 rounded-2xl p-6 flex flex-col gap-4">
           <h3 className="text-lg font-medium text-slate-200 flex items-center gap-2 border-b border-white/10 pb-2">
-            <Settings className="w-5 h-5 text-green-400" /> {t.randomGen.options}
+            <SettingsIcon className="w-5 h-5 text-green-400" /> {t.randomGen.options}
           </h3>
           
           <div className="flex flex-col gap-2">
@@ -133,8 +130,8 @@ export default function RandomGeneratorPage() {
         </div>
 
         {/* Output Panel */}
-        <div className="lg:col-span-2 glass-panel bg-slate-900/60 rounded-2xl p-6 flex flex-col relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-3xl" />
+        <div className="md:col-span-2 glass-panel bg-slate-900/60 rounded-2xl p-6 flex flex-col relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/10 rounded-full blur-3xl shadow-lg pointer-events-none" />
           
           <h3 className="text-lg font-medium text-slate-200 mb-4 z-10">{t.randomGen.outputLabel}</h3>
           <div className="flex-1 bg-black/20 rounded-xl p-6 text-xl tracking-widest font-mono text-slate-200 leading-relaxed overflow-y-auto mb-4 custom-scrollbar z-10 break-words border border-white/5 shadow-inner">

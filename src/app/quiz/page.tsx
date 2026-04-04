@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 import { textToMorse } from '@/lib/morse';
 import { CWAudioEngine } from '@/lib/audio';
 import { useCWStore } from '@/store/cwStore';
-import { CWConfigPanel } from '@/components/CWConfigPanel';
 import { Play, CheckCircle2, XCircle, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -100,8 +99,6 @@ export default function QuizPage() {
         </div>
       </div>
 
-      <CWConfigPanel />
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
         {/* Quiz Controls and Input */}
         <div className="glass-panel bg-slate-900/60 rounded-2xl p-6 flex flex-col gap-4 relative overflow-hidden">
@@ -123,7 +120,7 @@ export default function QuizPage() {
                 value={userInput}
                 onChange={e => setUserInput(e.target.value.toUpperCase())}
                 disabled={isEvaluating}
-                className="w-full bg-black/20 text-slate-200 font-mono text-2xl tracking-[0.5em] p-4 text-center rounded-xl border border-transparent focus:border-blue-500/50 outline-none uppercase transition-all"
+                className="w-full bg-black/20 text-slate-200 font-mono text-2xl tracking-[0.5em] p-4 text-center rounded-xl border border-transparent focus:border-blue-500/50 outline-none uppercase transition-all shadow-inner"
                 placeholder={t.quiz.answerPlaceholder}
               />
             </div>
@@ -132,14 +129,14 @@ export default function QuizPage() {
               <button
                 onClick={handleEvaluate}
                 disabled={!userInput || isPlaying}
-                className="mt-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl py-3 font-semibold transition-all disabled:opacity-50"
+                className="mt-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl py-3 font-semibold transition-all disabled:opacity-50 shadow-md"
               >
                 {t.quiz.submit}
               </button>
             ) : (
               <button
                 onClick={generateNewQuiz}
-                className="mt-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl py-3 font-semibold transition-all flex justify-center items-center gap-2"
+                className="mt-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl py-3 font-semibold transition-all flex justify-center items-center gap-2 border border-white/5 shadow-md"
               >
                 <RotateCcw className="w-4 h-4" /> {t.quiz.next}
               </button>
@@ -162,32 +159,34 @@ export default function QuizPage() {
               animate={{ scale: 1, opacity: 1 }}
               className="flex flex-col w-full h-full text-center items-center justify-center z-10"
             >
-              {stats?.accuracy === 100 ? (
-                <CheckCircle2 className="w-16 h-16 text-green-500 mb-4" />
-              ) : (
-                <XCircle className="w-16 h-16 text-red-500 mb-4" />
-              )}
+              <div className="relative mb-4">
+                {stats?.accuracy === 100 ? (
+                    <CheckCircle2 className="w-16 h-16 text-green-500" />
+                ) : (
+                    <XCircle className="w-16 h-16 text-red-500" />
+                )}
+              </div>
               
-              <h2 className="text-4xl font-bold mb-2 text-slate-200">
+              <h2 className="text-4xl font-bold mb-2 text-slate-100">
                 {stats?.accuracy}%
               </h2>
               <p className="text-slate-400 mb-6 border-b border-white/10 pb-6 w-full">
                 {stats?.correct} {t.quiz.correct} {stats?.total}
               </p>
 
-              <div className="w-full relative">
-                <div className="flex font-mono text-xl justify-center gap-2 mb-2 text-slate-400">
-                  <span className="w-24 text-right">{t.quiz.expected}</span>
-                  <span className="tracking-[0.5em] text-white">{sequence}</span>
+              <div className="w-full relative px-4">
+                <div className="flex font-mono text-lg md:text-xl justify-center gap-2 mb-2 text-slate-400 border-b border-white/5 pb-2">
+                  <span className="w-24 text-right opacity-50">{t.quiz.expected}</span>
+                  <span className="tracking-[0.5em] text-white font-bold">{sequence}</span>
                 </div>
-                <div className="flex font-mono text-xl justify-center gap-2">
-                  <span className="w-24 text-right">{t.quiz.typed}</span>
+                <div className="flex font-mono text-lg md:text-xl justify-center gap-2 mt-2">
+                  <span className="w-24 text-right opacity-50">{t.quiz.typed}</span>
                   <span className="tracking-[0.5em]">
                     {sequence.split('').map((char, i) => {
                        const actual = userInput[i] || '_';
                        const isCorrect = char === actual;
                        return (
-                         <span key={i} className={isCorrect ? 'text-green-500' : 'text-red-500'}>
+                         <span key={i} className={isCorrect ? 'text-green-500 transition-colors' : 'text-red-500 underline decoration-wavy decoration-red-500/50'}>
                            {actual}
                          </span>
                        )
@@ -197,10 +196,10 @@ export default function QuizPage() {
               </div>
 
               {Object.keys(stats?.errorsByChar || {}).length > 0 && (
-                <div className="mt-6 flex flex-wrap gap-2 justify-center">
-                  <span className="text-sm text-slate-500 w-full mb-1">{t.quiz.mistakes}</span>
+                <div className="mt-8 flex flex-wrap gap-2 justify-center">
+                  <span className="text-xs text-slate-500 w-full mb-1 uppercase tracking-widest">{t.quiz.mistakes}</span>
                   {Object.entries(stats!.errorsByChar).map(([char, count]) => (
-                    <div key={char} className="bg-red-500/10 border border-red-500/20 text-red-400 px-3 py-1 rounded-full text-sm font-mono">
+                    <div key={char} className="bg-red-500/10 border border-red-500/20 text-red-400 px-3 py-1 rounded-full text-xs font-mono shadow-sm">
                       {char} (x{count})
                     </div>
                   ))}

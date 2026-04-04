@@ -7,13 +7,21 @@ export const TRANSLATIONS = {
       quizMode: "Quiz Mode",
       keyingPractice: "Keying Practice",
       signalMonitor: "Signal Monitor",
+      settings: "Settings",
       footer: {
         version: "v1.0.0",
         credits: "By sector7gp",
         basedOn: "Based on f1orl.org",
         qrmBelgrano: "Radio Club QRM Belgrano",
-        repo: "Source Code"
+        repo: "Source Code",
+        settings: "Settings"
       }
+    },
+    settings: {
+      title: "Audio Configuration",
+      subtitle: "Global Morse Code parameters",
+      additionalInfo: "Additional Information",
+      description: "Changes made in this section are applied globally to all practice modes (Generator, Lessons, Quiz, Keying). Preferences are automatically saved in your browser."
     },
     config: {
       title: "CW Audio Configuration",
@@ -103,13 +111,21 @@ export const TRANSLATIONS = {
       quizMode: "Modo Quiz",
       keyingPractice: "Práctica de Transmisión",
       signalMonitor: "Monitor de Señal",
+      settings: "Configuración",
       footer: {
         version: "v1.0.0",
         credits: "Por sector7gp",
         basedOn: "Basado en f1orl.org",
         qrmBelgrano: "Radio Club QRM Belgrano",
-        repo: "Código Fuente"
+        repo: "Código Fuente",
+        settings: "Configuración"
       }
+    },
+    settings: {
+      title: "Configuración de Audio",
+      subtitle: "Parámetros globales de Código Morse",
+      additionalInfo: "Información Adicional",
+      description: "Los cambios realizados en esta sección se aplican de forma global a todos los modos de práctica (Generador, Lecciones, Quiz, Trasmisión). Las preferencias se guardan automáticamente en tu navegador."
     },
     config: {
       title: "Configuración de Audio CW",

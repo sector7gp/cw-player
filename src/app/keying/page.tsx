@@ -4,7 +4,6 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { morseToText } from '@/lib/morse';
 import { CWAudioEngine } from '@/lib/audio';
 import { useCWStore } from '@/store/cwStore';
-import { CWConfigPanel } from '@/components/CWConfigPanel';
 import { RotateCcw, Keyboard as KeyboardIcon, Hand, Volume2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -138,8 +137,6 @@ export default function KeyingPage() {
         </div>
       </div>
 
-      <CWConfigPanel />
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
         {/* Input Area */}
         <div className="glass-panel bg-slate-900/60 rounded-2xl p-6 flex flex-col justify-center items-center relative overflow-hidden h-80 sm:h-96">
@@ -164,12 +161,12 @@ export default function KeyingPage() {
             <Hand className={`w-12 h-12 md:w-16 md:h-16 ${isPressing ? 'text-white' : 'text-slate-400'}`} />
           </div>
 
-          <div className="mt-6 flex flex-col items-center gap-2 z-10">
-            <p className="text-slate-500 text-center text-xs md:text-sm px-4">
+          <div className="mt-6 flex flex-col items-center gap-2 z-10 text-center">
+            <p className="text-slate-500 text-xs md:text-sm px-4 max-w-xs">
               {t.keying.instruction}
             </p>
             {!isAudioEnabled && (
-                <div className="flex items-center gap-2 text-[10px] text-orange-400/60 animate-pulse uppercase tracking-wider font-bold">
+                <div className="flex items-center gap-2 text-[10px] text-orange-400/60 animate-pulse uppercase tracking-wider font-bold mt-2">
                     <Volume2 className="w-3 h-3" /> Tap to active audio
                 </div>
             )}

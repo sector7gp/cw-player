@@ -4,8 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { textToMorse } from '@/lib/morse';
 import { CWAudioEngine } from '@/lib/audio';
 import { useCWStore } from '@/store/cwStore';
-import { CWConfigPanel } from '@/components/CWConfigPanel';
-import { Play, Square, Activity } from 'lucide-react';
+import { Activity, Play, Square } from 'lucide-react';
 
 export default function MonitorPage() {
   const { config, isPlaying, setIsPlaying, t } = useCWStore();
@@ -108,8 +107,6 @@ export default function MonitorPage() {
         </div>
       </div>
 
-      <CWConfigPanel />
-
       <div className="glass-panel bg-slate-900/60 rounded-2xl p-6 flex flex-col items-center justify-center relative overflow-hidden mt-4">
         <h3 className="text-lg font-medium text-slate-200 w-full flex items-center gap-2 mb-4 z-10">
           <Activity className="w-5 h-5 text-cyan-400" /> {t.monitor.oscilloscope}
@@ -136,7 +133,7 @@ export default function MonitorPage() {
             <input 
               value={testText}
               onChange={(e) => setTestText(e.target.value.toUpperCase())}
-              className="bg-black/30 w-full md:w-64 rounded-xl px-4 py-2 text-slate-200 outline-none focus:ring-2 focus:ring-cyan-500/50"
+              className="bg-black/30 w-full md:w-64 rounded-xl px-4 py-2 text-slate-200 outline-none focus:ring-2 focus:ring-cyan-500/50 shadow-inner border border-white/5"
             />
           </div>
           <div className="flex gap-3 w-full md:w-auto">
@@ -150,7 +147,7 @@ export default function MonitorPage() {
             <button
               disabled={!isPlaying}
               onClick={handleStopTone}
-              className="px-6 bg-slate-800 hover:bg-slate-700 text-slate-300 disabled:opacity-30 rounded-xl font-semibold transition-all flex items-center justify-center gap-2"
+              className="px-6 bg-slate-800 hover:bg-slate-700 text-slate-300 disabled:opacity-30 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 border border-white/5"
             >
               <Square className="w-5 h-5 fill-current" /> {t.monitor.stop}
             </button>
